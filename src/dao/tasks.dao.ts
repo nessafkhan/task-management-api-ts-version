@@ -25,7 +25,7 @@ class TaskDao{
      * @param {Array} fields 
      * @returns {Promise<Task>}
      */
-    public async getTaskById(id:string, fields = ['_id', 'sr_no']):Promise<Task> {
+    public async getTaskById(id:string, fields:string[] = ['_id', 'sr_no']):Promise<Task> {
         return await TaskModel.findOne({ _id: id, isDeleted: false })
             .select(fields)
             .lean();
@@ -94,3 +94,5 @@ class TaskDao{
     };
 
 }
+
+export default TaskDao;
