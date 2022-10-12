@@ -1,3 +1,4 @@
+import { MulterRequest } from "@/interfaces/multer.interface";
 import { Task } from "@/interfaces/tasks.interface";
 import TaskService from "@/services/tasks.service";
 import { NextFunction, Request, Response } from "express";
@@ -24,6 +25,17 @@ class TasksControlller{
         }
     }
 
+
+    public addTasks = async (req:MulterRequest,res:Response, next:NextFunction) => {
+        try{
+            const stucturedTasks:Object[] = req.stuctruedTasks;
+            const createdTasks:Object[] = await this.TaskService.createTasks(stucturedTasks);
+            res.status(200).json(createdTasks);
+        } catch (error) {
+            next(error)
+        }
+    }
+    
     /**
      * Get tasks controller
      * @param {Request} req 

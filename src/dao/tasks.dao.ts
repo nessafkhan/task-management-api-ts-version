@@ -23,11 +23,11 @@ class TaskDao{
 
 
      /**
-     * Create tasks from CSV file
+     * Create tasks dao
      * @param {Object[]} data 
      * @returns {Promise<Task[]>}
      */
-      public async createTasksBulk(data:[]):Promise<Task[]> {
+      public async createTasksBulk(data:Object[]):Promise<Task[]> {
         return await TaskModel.create(data);
     };
 
@@ -84,6 +84,7 @@ class TaskDao{
             $push: { taskPoints: { $each: taskPoints } },
             status,
         });
+        //TODO:update.save() method
         return await TaskModel.findById(id).lean();
     };
 

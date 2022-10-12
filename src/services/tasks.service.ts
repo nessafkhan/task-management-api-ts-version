@@ -16,6 +16,15 @@ class TaskService{
     }
 
     /**
+     * Create tasks service
+     * @param {Object[]} data 
+     * @returns {Promise<Task[]>}
+     */
+    public async createTasks(data:Object[]):Promise<Task[]>{
+        return await this.TaskDao.createTasksBulk(data);
+    }
+
+    /**
      * Get tasks service
      * @param {number} page_no 
      * @param {number} page_size 
