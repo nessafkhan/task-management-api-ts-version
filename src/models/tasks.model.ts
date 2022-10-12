@@ -45,7 +45,7 @@ TaskSchema.pre('save', function (next) {
 		{ new: true, upsert: true }
 	)
 		.then(function (count) {
-			doc.sr_no = count;
+			doc.sr_no = count.seq;
 			next();
 		})
 		.catch(function (error) {
@@ -55,4 +55,4 @@ TaskSchema.pre('save', function (next) {
 });
 
 
-export const TaskModel = model<Task & Document>('Task', TaskSchema);
+export const TaskModel = model<Task>('Task', TaskSchema);

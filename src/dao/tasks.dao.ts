@@ -4,8 +4,36 @@ import { Task } from "@/interfaces/tasks.interface";
 
 class TaskDao{
     public Task = TaskModel;
+
+
+     /**
+     * Create new task dao
+     * @param {String} name 
+     * @param {String} description 
+     * @param {String[]} task_points 
+     * @returns {Promise<Task>}
+     */
+      public async createTask(name:string, description:string, taskPoints:string[]):Promise<Task> {
+        return await TaskModel.create({
+            name,
+            description,
+            taskPoints,
+        });
+    };
+
+
+     /**
+     * Create tasks from CSV file
+     * @param {Object[]} data 
+     * @returns {Promise<Task[]>}
+     */
+      public async createTasksBulk(data:[]):Promise<Task[]> {
+        return await TaskModel.create(data);
+    };
+
+
     /**
-     * Get tasks
+     * Get tasks dao
      * @param {Number} page_no 
      * @param {Number} page_size 
      * @returns {Promise<Task[]>}
@@ -20,72 +48,48 @@ class TaskDao{
 
 
     /**
-     * Get task by id
+     * Get task dao   
      * @param {String} id 
      * @param {Array} fields 
      * @returns {Promise<Task>}
      */
-    public async getTaskById(id:string, fields:string[] = ['_id', 'sr_no']):Promise<Task> {
-        return await TaskModel.findOne({ _id: id, isDeleted: false })
+    public async getTaskById(id:string, fields:string):Promise<Task> {
+        return await TaskModel.findOne({ _id: id, isActive: true })
             .select(fields)
             .lean();
     };
 
 
     /**
-     * Get task by search name
+     * Get task by search name - dao
      * @param {String} qSearch
      * @returns {Promise<Task>}
      */
     public async getTaskByName (qSearch:string):Promise<Task[]> {
-        return await TaskModel.find({ name: qSearch });
-    };
-
-    /**
-     * Create new task
-     * @param {String} name 
-     * @param {String} description 
-     * @param {String[]} task_points 
-     * @returns {Promise<Task>}
-     */
-    public async createTask(name:string, description:string, task_points:string[]):Promise<Task> {
-        return await TaskModel.create({
-            name,
-            description,
-            task_points,
-        });
+        return await TaskModel.find({ name: qSearch }).lean();
     };
 
 
     /**
-     * Create tasks from CSV file
-     * @param {Object[]} data 
-     * @returns {Promise<Task[]>}
-     */
-    public async createTasksBulk(data:[]):Promise<Task[]> {
-        return await TaskModel.create(data);
-    };
-
-
-    /**
-     * Update task by id
+     * Update task dao
      * @param {String} id 
      * @param {String} description 
      * @param {String[]} task_points 
      * @param {String} status 
      * @returns {Promise<Task>}
      */
-    public async findTaskAndUpdate (id:string, description:string, task_points:string[], status:string):Promise<Task> {
+    public async findTaskAndUpdate (id:string, description:string, taskPoints:string[], status:string):Promise<Task> {
         await TaskModel.findByIdAndUpdate(id, {
             description,
-            $push: { task_points: { $each: task_points } },
+            $push: { taskPoints: { $each: taskPoints } },
             status,
         });
         return await TaskModel.findById(id).lean();
     };
 
+
     /**
-     * Delete task by id
+     * Delete task dao
      * @param {String} id 
      * @returns {Promise<Task>}
      */
