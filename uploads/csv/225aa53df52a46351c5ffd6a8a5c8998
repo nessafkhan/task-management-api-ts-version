@@ -1,0 +1,8 @@
+name,description,taskPoint 1,taskPoint 2,taskPoint 3
+Bulk CSV Upload,Uploading CSV file in proper format to insert in tasks,Explore Multer,Write Backedn Code,delete task
+Learn Ts,Learn ts ASAP,Type checking,edit task,Interface
+Testing 1,Test task update code,Update desc,Update status,Update task points
+Code review,Code review to be done in 1hr,check pagination,edit task,delete task
+Demo,full testing FE and BE,module,integrated,end to end
+PR review,PR review in every pr request,code quliaty,standards,optimisation
+Deployment,Product will be on live at 3am,AWS,nginx,serverless

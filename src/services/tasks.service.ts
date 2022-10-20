@@ -2,7 +2,7 @@ import TaskDao from "@/dao/tasks.dao";
 import { Task } from "@/interfaces/tasks.interface";
 
 class TaskService{
-    private TaskDao = new TaskDao();
+    private taskDao = new TaskDao();
 
     /**
      * Create new task service
@@ -12,7 +12,7 @@ class TaskService{
      * @returns {Promise<Task>}
      */
     public async createTask(name:string, description:string, taskPoints:string[]):Promise<Task>{
-        return await this.TaskDao.createTask(name,description,taskPoints);
+        return await this.taskDao.createTask(name,description,taskPoints);
     }
 
     /**
@@ -21,7 +21,7 @@ class TaskService{
      * @returns {Promise<Task[]>}
      */
     public async createTasks(data:Object[]):Promise<Task[]>{
-        return await this.TaskDao.createTasksBulk(data);
+        return await this.taskDao.createTasksBulk(data);
     }
 
     /**
@@ -31,7 +31,7 @@ class TaskService{
      * @returns {Promise<Task[]>}
      */
     public async findTasks(page_no:number, page_size:number):Promise<Task[]>{
-       return await this.TaskDao.getTasks(page_no,page_size);
+       return await this.taskDao.getTasks(page_no,page_size);
     }
 
     /**
@@ -41,7 +41,7 @@ class TaskService{
      * @returns {Promise<Task>}
      */
     public async findTask(id:string,fields:string):Promise<Task>{
-        return await this.TaskDao.getTaskById(id,fields);
+        return await this.taskDao.getTaskById(id,fields);
     }
 
 
@@ -54,7 +54,7 @@ class TaskService{
      * @returns {Promise<Task>}
      */
     public async updateTask(id:string, description:string, taskPoints:string[], status:string):Promise<Task>{
-        return await this.TaskDao.findTaskAndUpdate(id,description,taskPoints,status);
+        return await this.taskDao.findTaskAndUpdate(id,description,taskPoints,status);
     }
 
 
@@ -64,7 +64,7 @@ class TaskService{
      * @returns {Promise<Task>} 
      */
     public async deleteTask(id:string):Promise<Task>{
-        return await this.TaskDao.findTaskAndDelete(id);
+        return await this.taskDao.findTaskAndDelete(id);
     }
 }
 

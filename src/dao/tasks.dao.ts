@@ -40,7 +40,6 @@ class TaskDao{
      */
     public async getTasks(page_no:number, page_size:number):Promise<Task[]> {
         return await TaskModel.find({ isActive: true })
-            .sort({ createdAt: -1 })
             .skip((page_no - 1) * page_size)
             .limit(page_size)
             .lean();
@@ -79,11 +78,14 @@ class TaskDao{
      * @returns {Promise<Task>}
      */
     public async findTaskAndUpdate (id:string, description:string, taskPoints:string[], status:string):Promise<Task> {
-        await TaskModel.findByIdAndUpdate(id, {
-            description,
-            $push: { taskPoints: { $each: taskPoints } },
-            status,
-        });
+        // await TaskModel.findByIdAndUpdate(id, {
+        //     description,
+        //     $push: { taskPoints: { $each: taskPoints } },
+        //     status,
+        // });/
+        await TaskModel.updateOne( {_id: id}, {
+            $set :{ description, status, taskPoints}
+        })
         //TODO:update.save() method
         return await TaskModel.findById(id).lean();
     };

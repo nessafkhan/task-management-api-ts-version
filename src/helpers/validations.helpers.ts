@@ -28,4 +28,12 @@ const checkNameLength = (name:string) => {
 	}
 	return false;
 };
- export {checkRequiredFields, checkSpecialChars, checkNameLength};
+
+
+const checkTaskPointsEmpty = (taskPoints: []) => {
+	taskPoints.map(item => {
+		console.log(item);
+		
+	})
+}
+ export {checkRequiredFields, checkSpecialChars, checkNameLength, checkTaskPointsEmpty};
